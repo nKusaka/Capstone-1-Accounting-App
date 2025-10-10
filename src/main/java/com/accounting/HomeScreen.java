@@ -91,13 +91,21 @@ public class HomeScreen {
     }
 
     // This method allows the user to make a payment
-    public static String makePayment(Scanner read) {
+    public static String makePayment(Scanner read) throws Exception {
         boolean isValid = true;
         long debitInformation;
+
+        System.out.printf("""
+                ======================================
+                Accessing Payment Menu.....
+                ======================================\n""");
+
+        //loadingEffect();
+
         System.out.printf("Enter the 16 digits on the back of your card: ");
         while (isValid) {
             try {
-                debitInformation = read.nextInt();
+                debitInformation = read.nextLong();
             } catch (Exception e) {
                 System.out.printf("Please enter a valid debit card number: ");
                 read.nextLine();
@@ -105,6 +113,7 @@ public class HomeScreen {
             }
             isValid = false;
         }
+        read.nextLine();
         return "";
     }
 }
