@@ -10,11 +10,11 @@ public class HomeScreen {
         do {
 
             if (firstLaunch) {
-                System.out.println("==============Home Screen=====================\n"
-                        + "               Press D to add a deposit                \n"
-                        + "               Press P to make a payment               \n"
-                        + "          Press L to display the Ledger screen         \n"
-                        + "=======================================================");
+                System.out.println("|=====================Home Screen=====================|\n"
+                        +          "|           Press D to add a deposit                  |\n"
+                        +          "|           Press P to make a payment                 |\n"
+                        +          "|       Press L to display the Ledger screen          |\n"
+                        +          "|=====================================================|");
                 firstLaunch = false;
             }
             userInput = read.nextLine();
