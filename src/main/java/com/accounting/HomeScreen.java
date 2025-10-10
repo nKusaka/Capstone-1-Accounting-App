@@ -1,14 +1,16 @@
 package com.accounting;
+import java.time.*;
 import java.util.*;
 import java.io.*;
 
 public class HomeScreen {
 
     // Creates the homescreen for the user
-    public static void homeScreen() {
+    public static void homeScreen() throws Exception {
 
         String userInput = "";
         Scanner read = new Scanner(System.in);
+        ArrayList<Transaction> transactions = new ArrayList<>();
 
         do {
             System.out.printf("""
@@ -23,13 +25,17 @@ public class HomeScreen {
             userInput = read.nextLine();
 
             // Check to make sure users input is valid
-            while (!userInput.equalsIgnoreCase("d") && !userInput.equalsIgnoreCase("p") && !userInput.equalsIgnoreCase("l") && !userInput.equalsIgnoreCase("x")) {
+            while (!userInput.equalsIgnoreCase("d")
+                    && !userInput.equalsIgnoreCase("p")
+                    && !userInput.equalsIgnoreCase("l")
+                    && !userInput.equalsIgnoreCase("x"))
+            {
                 System.out.printf("Please enter a valid input: ");
                 userInput = read.nextLine();
             }
             switch (userInput.toLowerCase()) {
                 case "d":
-                    addDeposit();
+                    addDeposit(read, transactions);
                     break;
                 case "p":
                    // makePayment();
@@ -41,8 +47,33 @@ public class HomeScreen {
         } while (!userInput.equalsIgnoreCase("x"));
     }
 
-    // Method adds a users deposit to the transactions.csv file and arraylist/hashmap and creates a new transaction object
-    public static void addDeposit() {
+    // Method adds a users deposit to the transactions.csv file and arraylist/hashmap and creates a new transaction
+    public static void addDeposit(Scanner read, ArrayList<Transaction> transactions) throws Exception {
+        System.out.printf("""
+                ======================================
+                Accessing Deposit Menu.....
+                ======================================\n""");
 
+        //loadingEffect();
+
+        // Get user input for the transaction
+        System.out.printf("Enter a description of the transaction: ");
+        String description = read.nextLine();
+
+        System.out.printf("Enter the vendor name: ");
+        String vendor = read.nextLine();
+
+        System.out.printf("Enter the amount for the transaction (if something was paid for enter a negative number): ");
+        double amount = read.nextDouble();
+
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        // Create new Transaction object
+        transactions.add(new Transaction(dateTime, description, vendor, amount));
+    }
+
+    // This method adds a loading effect when called
+    public static void loadingEffect() throws Exception {
+        Thread.sleep(2000);
     }
 }

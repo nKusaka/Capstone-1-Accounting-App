@@ -1,7 +1,7 @@
 package com.accounting;
 import java.time.LocalDateTime;
 import java.util.*;
-import jasa.io.*;
+import java.io.*;
 
 public class Transaction {
 
@@ -55,5 +55,10 @@ public class Transaction {
 
     public double getAmount() {
         return this.amount;
+    }
+
+    @Override
+    public String toString() {
+        return this.dateTime + " " + this.description + " " + this.vendor + " $" + this.amount;
     }
 }
