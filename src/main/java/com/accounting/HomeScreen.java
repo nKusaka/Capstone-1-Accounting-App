@@ -36,7 +36,7 @@ public class HomeScreen {
                     isValid = true;
                     break;
                 case "p":
-                    makePayment(read);
+                    makePayment(read, bufferedWriter);
                     isValid = true;
                     break;
                 case "l":
@@ -91,9 +91,9 @@ public class HomeScreen {
     }
 
     // This method allows the user to make a payment
-    public static String makePayment(Scanner read) throws Exception {
+    public static void makePayment(Scanner read, BufferedWriter bufferedWriter) throws Exception {
         boolean isValid = true;
-        long debitInformation;
+        long debitInformation = 0;
 
         System.out.printf("""
                 ======================================
@@ -114,6 +114,7 @@ public class HomeScreen {
             isValid = false;
         }
         read.nextLine();
-        return "";
+        String cardInformation = String.valueOf(debitInformation);
+        bufferedWriter.write(cardInformation);
     }
 }
