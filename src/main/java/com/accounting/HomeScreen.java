@@ -1,4 +1,7 @@
 package com.accounting;
+import org.w3c.dom.ls.LSOutput;
+
+import java.nio.Buffer;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -13,44 +16,49 @@ public class HomeScreen {
         Scanner read = new Scanner(System.in);
         ArrayList<Transaction> transactions = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
+        boolean isValid = true;
+        FileWriter fileWriter = new FileWriter("transactions.csv");
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
 
         do {
-            System.out.printf("""
-                                  |=====================Home Screen=====================|
-                                  |              Press D to add a deposit               |
-                                  |              Press P to make a payment              |
-                                  |         Press L to display the Ledger screen        |
-                                  |           Press X to exit the application           |
-                                  |=====================================================|
-                                  Enter command:""");
-
+            if (isValid) {
+                System.out.println("""
+                        |=====================Home Screen=====================|
+                        |              Press D to add a deposit               |
+                        |              Press P to make a payment              |
+                        |         Press L to display the Ledger screen        |
+                        |           Press X to exit the application           |
+                        |=====================================================|""");
+            }
+            System.out.printf("Enter choice: ");
             userInput = read.nextLine();
 
             // Check to make sure users input is valid
-            while (!userInput.equalsIgnoreCase("d")
-                    && !userInput.equalsIgnoreCase("p")
-                    && !userInput.equalsIgnoreCase("l")
-                    && !userInput.equalsIgnoreCase("x"))
-            {
-                System.out.printf("Please enter a valid input: ");
-                userInput = read.nextLine();
-            }
-            switch (userInput.toLowerCase()) {
-                case "d":
-                    addDeposit(read, transactions, formatter);
-                    break;
-                case "p":
-                   // makePayment();
-                    break;
-                case "l":
-                    //displayLedger();
-                    break;
+                switch (userInput.toLowerCase()) {
+                    case "d":
+                        addDeposit(read, transactions, formatter, bufferedWriter);
+                        isValid = true;
+                        break;
+                    case "p":
+                        // makePayment();
+                        break;
+                    case "l":
+                        //displayLedger();
+                        break;
+                    case "x":
+                        bufferedWriter.close();
+                        break;
+                    default:
+                        isValid = false;
+                        System.out.println("This input is invalid");
             }
         } while (!userInput.equalsIgnoreCase("x"));
+
     }
 
     // Method adds a users deposit to the transactions.csv file and arraylist/hashmap and creates a new transaction
-    public static void addDeposit(Scanner read, ArrayList<Transaction> transactions, DateTimeFormatter formatter) throws Exception {
+    public static void addDeposit(Scanner read, ArrayList<Transaction> transactions, DateTimeFormatter formatter, BufferedWriter bufferedWriter) throws Exception {
         System.out.printf("""
                 ======================================
                 Accessing Deposit Menu.....
@@ -73,10 +81,11 @@ public class HomeScreen {
         String formattedDate = dateTime.format(formatter);
 
         // Create new Transaction object to hold transaction data
-        transactions.add(new Transaction(formattedDate, description, vendor, amount));
+        Transaction tempTransaction = new Transaction(formattedDate, description, vendor, amount);
+        transactions.add(tempTransaction);
 
-        System.out.println(transactions.get(0));
-
+        // Save transaction to csv file
+            bufferedWriter.write(String.valueOf(tempTransaction) + "\n");
     }
 
     // This method adds a loading effect when called
