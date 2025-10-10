@@ -1,5 +1,6 @@
 package com.accounting;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.*;
 
@@ -11,6 +12,7 @@ public class HomeScreen {
         String userInput = "";
         Scanner read = new Scanner(System.in);
         ArrayList<Transaction> transactions = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
 
         do {
             System.out.printf("""
@@ -35,7 +37,7 @@ public class HomeScreen {
             }
             switch (userInput.toLowerCase()) {
                 case "d":
-                    addDeposit(read, transactions);
+                    addDeposit(read, transactions, formatter);
                     break;
                 case "p":
                    // makePayment();
@@ -48,7 +50,7 @@ public class HomeScreen {
     }
 
     // Method adds a users deposit to the transactions.csv file and arraylist/hashmap and creates a new transaction
-    public static void addDeposit(Scanner read, ArrayList<Transaction> transactions) throws Exception {
+    public static void addDeposit(Scanner read, ArrayList<Transaction> transactions, DateTimeFormatter formatter) throws Exception {
         System.out.printf("""
                 ======================================
                 Accessing Deposit Menu.....
@@ -65,11 +67,16 @@ public class HomeScreen {
 
         System.out.printf("Enter the amount for the transaction (if something was paid for enter a negative number): ");
         double amount = read.nextDouble();
+        read.nextLine();
 
         LocalDateTime dateTime = LocalDateTime.now();
+        String formattedDate = dateTime.format(formatter);
 
-        // Create new Transaction object
-        transactions.add(new Transaction(dateTime, description, vendor, amount));
+        // Create new Transaction object to hold transaction data
+        transactions.add(new Transaction(formattedDate, description, vendor, amount));
+
+        System.out.println(transactions.get(0));
+
     }
 
     // This method adds a loading effect when called

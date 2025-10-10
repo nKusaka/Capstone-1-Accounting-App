@@ -6,13 +6,13 @@ import java.io.*;
 public class Transaction {
 
     // Initialize instance variables
-    private LocalDateTime dateTime;
+    private String dateTime;
     private String description;
     private String vendor;
     private double amount;
 
     // Constructors parameterized and default
-    public Transaction(LocalDateTime dateTime, String description, String vendor, double amount) {
+    public Transaction(String dateTime, String description, String vendor, double amount) {
         this.dateTime = dateTime;
         this.description = description;
         this.vendor = vendor;
@@ -24,7 +24,7 @@ public class Transaction {
     }
 
     // Setters
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -41,7 +41,7 @@ public class Transaction {
     }
 
     // Getters
-    public LocalDateTime getDateTime() {
+    public String getDateTime() {
         return this.dateTime;
     }
 
@@ -59,6 +59,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return this.dateTime + " " + this.description + " " + this.vendor + " $" + this.amount;
+        return this.dateTime + "|" + this.description + "|" + this.vendor + "|" + this.amount;
     }
 }
