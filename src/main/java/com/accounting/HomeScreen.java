@@ -3,6 +3,8 @@ import java.util.*;
 import java.io.*;
 
 public class HomeScreen {
+
+    // Creates the homescreen for the user
     public static void homeScreen() {
 
         String userInput = "";
@@ -20,21 +22,27 @@ public class HomeScreen {
 
             userInput = read.nextLine();
 
+            // Check to make sure users input is valid
             while (!userInput.equalsIgnoreCase("d") && !userInput.equalsIgnoreCase("p") && !userInput.equalsIgnoreCase("l") && !userInput.equalsIgnoreCase("x")) {
                 System.out.printf("Please enter a valid input: ");
                 userInput = read.nextLine();
             }
-         /*   switch (userInput.toLowerCase()) {
+            switch (userInput.toLowerCase()) {
                 case "d":
                     addDeposit();
                     break;
                 case "p":
-                    makePayment();
+                   // makePayment();
                     break;
                 case "l":
-                    displayLedger();
+                    //displayLedger();
                     break;
-            }*/
+            }
         } while (!userInput.equalsIgnoreCase("x"));
+    }
+
+    // Method adds a users deposit to the transactions.csv file and arraylist/hashmap and creates a new transaction object
+    public static void addDeposit() {
+
     }
 }
