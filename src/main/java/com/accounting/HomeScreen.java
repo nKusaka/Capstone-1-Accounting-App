@@ -1,9 +1,6 @@
 package com.accounting;
-import org.w3c.dom.ls.LSOutput;
-
-import java.nio.Buffer;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.time.format.*;
 import java.util.*;
 import java.io.*;
 
@@ -11,7 +8,6 @@ public class HomeScreen {
 
     // Creates the homescreen for the user
     public static void homeScreen() throws Exception {
-
         String userInput = "";
         Scanner read = new Scanner(System.in);
         ArrayList<Transaction> transactions = new ArrayList<>();
@@ -19,7 +15,6 @@ public class HomeScreen {
         boolean isValid = true;
         FileWriter fileWriter = new FileWriter("transactions.csv");
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
 
         do {
             if (isValid) {
@@ -35,23 +30,25 @@ public class HomeScreen {
             userInput = read.nextLine();
 
             // Check to make sure users input is valid
-                switch (userInput.toLowerCase()) {
-                    case "d":
-                        addDeposit(read, transactions, formatter, bufferedWriter);
-                        isValid = true;
-                        break;
-                    case "p":
-                        // makePayment();
-                        break;
-                    case "l":
-                        //displayLedger();
-                        break;
-                    case "x":
-                        bufferedWriter.close();
-                        break;
-                    default:
-                        isValid = false;
-                        System.out.println("This input is invalid");
+            switch (userInput.toLowerCase()) {
+                case "d":
+                    addDeposit(read, transactions, formatter, bufferedWriter);
+                    isValid = true;
+                    break;
+                case "p":
+                    makePayment(read);
+                    isValid = true;
+                    break;
+                case "l":
+                    //displayLedger();
+                    isValid = true;
+                    break;
+                case "x":
+                    bufferedWriter.close();
+                    break;
+                default:
+                    isValid = false;
+                    System.out.println("This input is invalid");
             }
         } while (!userInput.equalsIgnoreCase("x"));
 
@@ -85,11 +82,29 @@ public class HomeScreen {
         transactions.add(tempTransaction);
 
         // Save transaction to csv file
-            bufferedWriter.write(String.valueOf(tempTransaction) + "\n");
+        bufferedWriter.write(String.valueOf(tempTransaction) + "\n");
     }
 
     // This method adds a loading effect when called
     public static void loadingEffect() throws Exception {
         Thread.sleep(2000);
+    }
+
+    // This method allows the user to make a payment
+    public static String makePayment(Scanner read) {
+        boolean isValid = true;
+        long debitInformation;
+        System.out.printf("Enter the 16 digits on the back of your card: ");
+        while (isValid) {
+            try {
+                debitInformation = read.nextInt();
+            } catch (Exception e) {
+                System.out.printf("Please enter a valid debit card number: ");
+                read.nextLine();
+                continue;
+            }
+            isValid = false;
+        }
+        return "";
     }
 }
