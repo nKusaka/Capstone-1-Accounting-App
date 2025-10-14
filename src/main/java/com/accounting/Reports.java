@@ -51,7 +51,7 @@ public class Reports {
                     isValid = true;
                     break;
                 case "5":
-                    vendorSearch(transactions);
+                    vendorSearch(transactions, read);
                     isValid = true;
                     break;
                 case "0":
@@ -123,7 +123,14 @@ public class Reports {
     }
 
     // Method lets the user search transactions by vendor name
-    public static void vendorSearch(ArrayList<Transaction> transactions) {
+    public static void vendorSearch(ArrayList<Transaction> transactions, Scanner read) {
+        System.out.printf("Enter the name of the vendor you would like to search for: ");
+        String userInput = read.nextLine().toLowerCase();
 
+        List<Transaction> vendorSearch = transactions.stream().filter
+                (transaction -> transaction.getVendor().toLowerCase().contains(userInput)).
+                sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
+
+        vendorSearch.forEach(transaction -> System.out.println(transaction));
     }
 }
