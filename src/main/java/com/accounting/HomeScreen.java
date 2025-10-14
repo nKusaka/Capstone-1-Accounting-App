@@ -34,11 +34,11 @@ public class HomeScreen {
             // Check to make sure users input is valid
             switch (userInput.toLowerCase()) {
                 case "d":
-                    addDeposit(read, transactions, formatter, bufferedWriter);
+                    addDeposit(read, transactions, bufferedWriter);
                     isValid = true;
                     break;
                 case "p":
-                    makePayment(read, bufferedWriter, transactions, formatter);
+                    makePayment(read, bufferedWriter, transactions);
                     isValid = true;
                     break;
                 case "l":
@@ -57,7 +57,7 @@ public class HomeScreen {
     }
 
     // Method adds a users deposit to the transactions.csv file and arraylist/hashmap and creates a new transaction
-    public static void addDeposit(Scanner read, ArrayList<Transaction> transactions, DateTimeFormatter formatter, BufferedWriter bufferedWriter) throws Exception {
+    public static void addDeposit(Scanner read, ArrayList<Transaction> transactions, BufferedWriter bufferedWriter) throws Exception {
         System.out.printf("""
                 ======================================
                 Accessing Deposit Menu.....
@@ -81,10 +81,9 @@ public class HomeScreen {
         read.nextLine();
 
         LocalDateTime dateTime = LocalDateTime.now();
-        String formattedDate = dateTime.format(formatter);
 
         // Create new Transaction object to hold transaction data
-        Transaction tempTransaction = new Transaction(formattedDate, description, vendor, amount);
+        Transaction tempTransaction = new Transaction(dateTime, description, vendor, amount);
         transactions.add(tempTransaction);
 
         // Save transaction to csv file
@@ -97,7 +96,7 @@ public class HomeScreen {
     }
 
     // This method allows the user to make a payment
-    public static void makePayment(Scanner read, BufferedWriter bufferedWriter, ArrayList<Transaction> transactions, DateTimeFormatter formatter) throws Exception {
+    public static void makePayment(Scanner read, BufferedWriter bufferedWriter, ArrayList<Transaction> transactions) throws Exception {
         System.out.printf("""
                 ======================================
                 Accessing Payment Menu.....
@@ -121,10 +120,9 @@ public class HomeScreen {
         read.nextLine();
 
         LocalDateTime dateTime = LocalDateTime.now();
-        String formattedDate = dateTime.format(formatter);
 
         // Create new Transaction object to hold transaction data
-        Transaction tempTransaction = new Transaction(formattedDate, description, vendor, amount);
+        Transaction tempTransaction = new Transaction(dateTime, description, vendor, amount);
         transactions.add(tempTransaction);
 
         // Save transaction to csv file

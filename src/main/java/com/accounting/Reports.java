@@ -5,10 +5,11 @@ import java.util.*;
 import java.io.*;
 
 public class Reports {
-    public static String reportsScreen(ArrayList<Transaction> transactions, Scanner read) {
+    public static String reportsScreen(ArrayList<Transaction> transactions, Scanner read) throws Exception {
         // Initialize variables
         boolean isValid = true;
         String userInput = "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
 
         // Print ledger screen
         do {
@@ -30,25 +31,40 @@ public class Reports {
 
             // Check to make sure users input is valid
             switch (userInput.toLowerCase()) {
-                case "a":
+                case "1":
+                    showMonthToDate(transactions, formatter);
                     isValid = true;
                     break;
-                case "d":
+                case "2":
                     isValid = true;
                     break;
-                case "p":
+                case "3":
                     isValid = true;
                     break;
-                case "r":
+                case "4":
+                    break;
+                case "5":
+                    break;
+                case "0":
                     break;
                 case "h":
-                    return userInput.toLowerCase();
                     break;
                 default:
                     isValid = false;
                     System.out.println("This input is invalid");
             }
-        } while (!userInput.equalsIgnoreCase("h"));
+        } while (!userInput.equalsIgnoreCase("h") && !userInput.equals("0"));
+
+        return userInput;
     }
+
+    public static void showMonthToDate(ArrayList<Transaction> transactions, DateTimeFormatter formatter) throws Exception{
+
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime firstOfMonth = today.withDayOfMonth(1);
+
+        ArrayList<Transaction> monthToDateTransactions = transactions.stream()
+                .filter(transaction -> LocalDateTime.parse(transaction.getDateTime(), formatter).
+                        isAfter(firstOfMonth) && LocalDateTime.parse(transaction.getDateTime(), formatter).isBefore(today));
     }
 }
