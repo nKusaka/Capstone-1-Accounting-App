@@ -40,9 +40,11 @@ public class Ledger {
                     isValid = true;
                     break;
                 case "p":
+                    displayPayments(transactions);
                     isValid = true;
                     break;
                 case "r":
+                    displayReports(transactions, read);
                     break;
                 case "h":
                     System.out.printf("""
@@ -100,5 +102,16 @@ public class Ledger {
                 System.out.println(transactions.get(i));
             }
         }
+    }
+
+    // This method takes the user to the reports menu
+    public static void displayReports(ArrayList<Transaction> transactions, Scanner read) throws Exception {
+        System.out.printf("""
+                ======================================
+                Fetching Reports Menu.....
+                ======================================\n""");
+        //HomeScreen.loadingEffect();
+
+        Reports.reportsScreen(transactions, read);
     }
 }
