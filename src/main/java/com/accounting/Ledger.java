@@ -36,6 +36,7 @@ public class Ledger {
                     isValid = true;
                     break;
                 case "d":
+                    displayDeposits(transactions);
                     isValid = true;
                     break;
                 case "p":
@@ -48,7 +49,7 @@ public class Ledger {
                 ======================================
                 Returning to Home Screen.....
                 ======================================\n""");
-                    HomeScreen.loadingEffect();
+                    //HomeScreen.loadingEffect();
                     break;
                 default:
                     isValid = false;
@@ -68,6 +69,36 @@ public class Ledger {
 
         for (int i = transactions.size() - 1; i >= 0; i--) {
             System.out.println(transactions.get(i));
+        }
+    }
+
+    // This method shows only deposits made into the account (positive transactions)
+    public static void displayDeposits(ArrayList<Transaction> transactions) throws Exception {
+        System.out.printf("""
+                ======================================
+                Displaying all Deposits.....
+                ======================================\n""");
+        //HomeScreen.loadingEffect();
+
+        for (int i = transactions.size() - 1; i >= 0; i--) {
+            if (transactions.get(i).getAmount() > 0) {
+                System.out.println(transactions.get(i));
+            }
+        }
+    }
+
+    // This method shows only payments made by the account (negative transactions)
+    public static void displayPayments(ArrayList<Transaction> transactions) throws Exception {
+        System.out.printf("""
+                ======================================
+                Displaying all Payments.....
+                ======================================\n""");
+        //HomeScreen.loadingEffect();
+
+        for (int i = transactions.size() - 1; i >= 0; i--) {
+            if (transactions.get(i).getAmount() < 0) {
+                System.out.println(transactions.get(i));
+            }
         }
     }
 }
