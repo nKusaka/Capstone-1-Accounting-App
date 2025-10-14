@@ -45,6 +45,7 @@ public class Ledger {
                     break;
                 case "r":
                     userInput = displayReports(transactions, read);
+                    isValid = true;
                     break;
                 case "h":
                     System.out.printf("""
@@ -108,7 +109,7 @@ public class Ledger {
     public static String displayReports(ArrayList<Transaction> transactions, Scanner read) throws Exception {
         System.out.printf("""
                 ======================================
-                Fetching Reports Menu.....
+                Fetching Reports Screen.....
                 ======================================\n""");
         //HomeScreen.loadingEffect();
 

@@ -6,6 +6,8 @@ import java.io.*;
 import java.util.stream.Collectors;
 
 public class Reports {
+
+    // Reports Screen
     public static String reportsScreen(ArrayList<Transaction> transactions, Scanner read) throws Exception {
         // Initialize variables
         boolean isValid = true;
@@ -33,18 +35,24 @@ public class Reports {
             // Check to make sure users input is valid
             switch (userInput.toLowerCase()) {
                 case "1":
-                    showMonthToDate(transactions, formatter);
+                    showMonthToDate(transactions);
                     isValid = true;
                     break;
                 case "2":
+                    showPreviousMonth(transactions);
                     isValid = true;
                     break;
                 case "3":
+                    showYearToDate(transactions);
                     isValid = true;
                     break;
                 case "4":
+                    showPreviousYear(transactions);
+                    isValid = true;
                     break;
                 case "5":
+                    vendorSearch(transactions);
+                    isValid = true;
                     break;
                 case "0":
                     break;
@@ -59,17 +67,63 @@ public class Reports {
         return userInput;
     }
 
-    public static void showMonthToDate(ArrayList<Transaction> transactions, DateTimeFormatter formatter) throws Exception{
+    // Method shows the transactions from the current day to the 1st of this month
+    public static void showMonthToDate(ArrayList<Transaction> transactions) {
 
         LocalDateTime today = LocalDateTime.now();
         LocalDateTime firstOfMonth = today.withDayOfMonth(1);
 
         List<Transaction> monthToDateTransactions = transactions.stream().filter
-                (transaction -> transaction.getDateTime().isBefore(today)
-        && transaction.getDateTime().isAfter(firstOfMonth))
+                (transaction -> !transaction.getDateTime().isAfter(today)
+        && !transaction.getDateTime().isBefore(firstOfMonth))
                 .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
         monthToDateTransactions.forEach(transaction -> System.out.println(transaction));
+
+    }
+
+    // Method shows the previous months transactions
+    public static void showPreviousMonth(ArrayList<Transaction> transactions) {
+
+        LocalDateTime startOfMonth = LocalDateTime.now().minusMonths(1).withDayOfMonth(1);
+        LocalDateTime endOfMonth = LocalDateTime.now().withDayOfMonth(1).minusDays(1);
+
+        List<Transaction> previousMonthTransactions = transactions.stream().filter
+                (transaction -> !transaction.getDateTime().isBefore(startOfMonth)
+                && !transaction.getDateTime().isAfter(endOfMonth))
+                .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
+
+        previousMonthTransactions.forEach(transaction -> System.out.println(transaction));
+    }
+
+    // Method shows the transactions from the current day to the beginning of this year
+    public static void showYearToDate(ArrayList<Transaction> transactions) {
+        LocalDateTime startOfYear = LocalDateTime.now().withDayOfYear(1);
+        LocalDateTime today = LocalDateTime.now();
+
+        List<Transaction> yearToDateTransactions = transactions.stream().filter
+                (transaction -> !transaction.getDateTime().isBefore(startOfYear)
+                && !transaction.getDateTime().isAfter(today))
+                .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
+
+        yearToDateTransactions.forEach(transaction -> System.out.println(transaction));
+    }
+
+    // Method shows the transactions from the previous year
+    public static void showPreviousYear(ArrayList<Transaction> transactions) {
+        LocalDateTime endOfYear = LocalDateTime.now().withDayOfYear(1);
+        LocalDateTime startOfYear = LocalDateTime.now().minusYears(1).withDayOfYear(1);
+
+        List<Transaction> previousYearTransactions = transactions.stream().filter
+                (transaction -> !transaction.getDateTime().isBefore(startOfYear)
+                && !transaction.getDateTime().isAfter(endOfYear))
+                .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
+
+        previousYearTransactions.forEach(transaction -> System.out.println(transaction));
+    }
+
+    // Method lets the user search transactions by vendor name
+    public static void vendorSearch(ArrayList<Transaction> transactions) {
 
     }
 }
