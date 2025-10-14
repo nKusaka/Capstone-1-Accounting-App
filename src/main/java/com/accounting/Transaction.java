@@ -59,6 +59,8 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return this.dateTime + "|" + this.description + "|" + this.vendor + "|" + this.amount;
+        return this.dateTime.getYear() + "-" + this.dateTime.getMonthValue() + "-" + this.dateTime.getDayOfMonth() + "|"
+                + this.dateTime.getHour() + ":" + this.dateTime.getMinute() + ":"
+                + this.dateTime.getSecond() + "|" + this.description + "|" + this.vendor + "|" + this.amount;
     }
 }

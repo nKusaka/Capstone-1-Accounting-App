@@ -3,6 +3,7 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 import java.io.*;
+import java.util.stream.Collectors;
 
 public class Reports {
     public static String reportsScreen(ArrayList<Transaction> transactions, Scanner read) throws Exception {
@@ -63,8 +64,12 @@ public class Reports {
         LocalDateTime today = LocalDateTime.now();
         LocalDateTime firstOfMonth = today.withDayOfMonth(1);
 
-        ArrayList<Transaction> monthToDateTransactions = transactions.stream()
-                .filter(transaction -> LocalDateTime.parse(transaction.getDateTime(), formatter).
-                        isAfter(firstOfMonth) && LocalDateTime.parse(transaction.getDateTime(), formatter).isBefore(today));
+        List<Transaction> monthToDateTransactions = transactions.stream().filter
+                (transaction -> transaction.getDateTime().isBefore(today)
+        && transaction.getDateTime().isAfter(firstOfMonth))
+                .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
+
+        monthToDateTransactions.forEach(transaction -> System.out.println(transaction));
+
     }
 }
