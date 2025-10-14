@@ -38,7 +38,7 @@ public class HomeScreen {
                     isValid = true;
                     break;
                 case "p":
-                    makePayment(read, bufferedWriter, transactions);
+                    makePayment(read, bufferedWriter, transactions, formatter);
                     isValid = true;
                     break;
                 case "l":
@@ -63,7 +63,7 @@ public class HomeScreen {
                 Accessing Deposit Menu.....
                 ======================================\n""");
 
-        loadingEffect();
+        //loadingEffect();
 
         // Get user input for the transaction
         System.out.printf("Enter a description of the transaction: ");
@@ -72,8 +72,12 @@ public class HomeScreen {
         System.out.printf("Enter the vendor name: ");
         String vendor = read.nextLine();
 
-        System.out.printf("Enter the amount for the transaction (if something was paid for enter a negative number): ");
+        System.out.printf("Enter the deposit amount: ");
         double amount = read.nextDouble();
+        while (amount < 0 ) {
+            System.out.printf("Please enter a valid deposit amount (deposits should be a positive amount): ");
+            amount = read.nextDouble();
+        }
         read.nextLine();
 
         LocalDateTime dateTime = LocalDateTime.now();
@@ -93,39 +97,38 @@ public class HomeScreen {
     }
 
     // This method allows the user to make a payment
-    public static void makePayment(Scanner read, BufferedWriter bufferedWriter, ArrayList<Transaction> transactions) throws Exception {
-        boolean isValid = false;
-        long debitInformation = 0;
-        String cardInformation = "";
+    public static void makePayment(Scanner read, BufferedWriter bufferedWriter, ArrayList<Transaction> transactions, DateTimeFormatter formatter) throws Exception {
         System.out.printf("""
                 ======================================
                 Accessing Payment Menu.....
                 ======================================\n""");
 
-        loadingEffect();
+        //loadingEffect();
 
-        System.out.printf("Enter the 16 digits on the back of your card: ");
-        while (!isValid || cardInformation.length() != 16) {
-            try {
-                debitInformation = read.nextLong();
-                cardInformation = String.valueOf(debitInformation);
-            } catch (Exception e) {
-                System.out.printf("Please enter a valid debit card number: ");
-                read.nextLine();
-                continue;
-            }
-            if (cardInformation.length() != 16) {
-                System.out.printf("Please enter a valid debit card number: ");
-            }
-            isValid = true;
+        // Get user input for the transaction
+        System.out.printf("Enter a description of the transaction: ");
+        String description = read.nextLine();
+
+        System.out.printf("Enter the vendor name: ");
+        String vendor = read.nextLine();
+
+        System.out.printf("Enter the payment amount: ");
+        double amount = read.nextDouble();
+        while (amount > 0 ) {
+            System.out.printf("Please enter a valid payment amount (payments should have a -): ");
+            amount = read.nextDouble();
         }
         read.nextLine();
 
-        // Add new debit information to array list as a Transaction object and also add it to the csv file
-        Transaction tempTransaction = new Transaction();
-        tempTransaction.setDebitInformation(cardInformation);
+        LocalDateTime dateTime = LocalDateTime.now();
+        String formattedDate = dateTime.format(formatter);
+
+        // Create new Transaction object to hold transaction data
+        Transaction tempTransaction = new Transaction(formattedDate, description, vendor, amount);
         transactions.add(tempTransaction);
-        bufferedWriter.write("debit card|" + cardInformation + "\n");
+
+        // Save transaction to csv file
+        bufferedWriter.write(String.valueOf(tempTransaction) + "\n");
     }
 
     // This method allows the user to see the Ledger screen
@@ -135,7 +138,7 @@ public class HomeScreen {
                 Fetching Ledger Screen.....
                 ======================================\n""");
 
-        loadingEffect();
+        //loadingEffect();
         Ledger.ledgerScreen(read,transactions);
     }
 }

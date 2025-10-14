@@ -10,7 +10,6 @@ public class Transaction {
     private String description;
     private String vendor;
     private double amount;
-    private String debitInformation;
 
     // Constructors parameterized and default
     public Transaction(String dateTime, String description, String vendor, double amount) {
@@ -41,10 +40,6 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public void setDebitInformation(String debitInformation) {
-        this.debitInformation = debitInformation;
-    }
-
     // Getters
     public String getDateTime() {
         return this.dateTime;
@@ -60,10 +55,6 @@ public class Transaction {
 
     public double getAmount() {
         return this.amount;
-    }
-
-    public String getDebitInformation() {
-        return this.debitInformation;
     }
 
     @Override

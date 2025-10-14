@@ -64,9 +64,9 @@ public class Ledger {
                 ======================================
                 Displaying all Entries.....
                 ======================================\n""");
-        HomeScreen.loadingEffect();
+        //HomeScreen.loadingEffect();
 
-        for (int i = transactions.size(); i > 0; --i) {
+        for (int i = transactions.size() - 1; i >= 0; i--) {
             System.out.println(transactions.get(i));
         }
     }
