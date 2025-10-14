@@ -8,6 +8,8 @@ public class HomeScreen {
 
     // Creates the homescreen for the user
     public static void homeScreen() throws Exception {
+
+        // Initialize variables
         String userInput = "";
         Scanner read = new Scanner(System.in);
         ArrayList<Transaction> transactions = new ArrayList<>();
@@ -40,7 +42,7 @@ public class HomeScreen {
                     isValid = true;
                     break;
                 case "l":
-                    displayLedger(read);
+                    displayLedger(read,transactions);
                     isValid = true;
                     break;
                 case "x":
@@ -122,13 +124,13 @@ public class HomeScreen {
     }
 
     // This method allows the user to see the Ledger screen
-    public static void displayLedger(Scanner read) throws Exception {
+    public static void displayLedger(Scanner read, ArrayList<Transaction> transactions) throws Exception {
         System.out.printf("""
                 ======================================
                 Fetching Ledger Screen.....
                 ======================================\n""");
 
         loadingEffect();
-        Ledger.ledgerScreen();
+        Ledger.ledgerScreen(read,transactions);
     }
 }
