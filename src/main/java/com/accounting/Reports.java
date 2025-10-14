@@ -78,8 +78,11 @@ public class Reports {
         && !transaction.getDateTime().isBefore(firstOfMonth))
                 .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
-        monthToDateTransactions.forEach(transaction -> System.out.println(transaction));
-
+        if (!monthToDateTransactions.isEmpty()) {
+            monthToDateTransactions.forEach(transaction -> System.out.println(transaction));
+        } else {
+            System.out.println("There are no transactions this month");
+        }
     }
 
     // Method shows the previous months transactions
@@ -93,7 +96,11 @@ public class Reports {
                 && !transaction.getDateTime().isAfter(endOfMonth))
                 .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
-        previousMonthTransactions.forEach(transaction -> System.out.println(transaction));
+        if (!previousMonthTransactions.isEmpty()) {
+            previousMonthTransactions.forEach(transaction -> System.out.println(transaction));
+        } else {
+            System.out.println("There are no transactions for the previous month");
+        }
     }
 
     // Method shows the transactions from the current day to the beginning of this year
@@ -106,7 +113,11 @@ public class Reports {
                 && !transaction.getDateTime().isAfter(today))
                 .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
-        yearToDateTransactions.forEach(transaction -> System.out.println(transaction));
+        if (!yearToDateTransactions.isEmpty()) {
+            yearToDateTransactions.forEach(transaction -> System.out.println(transaction));
+        } else {
+            System.out.println("There are no transactions this year");
+        }
     }
 
     // Method shows the transactions from the previous year
@@ -119,7 +130,11 @@ public class Reports {
                 && !transaction.getDateTime().isAfter(endOfYear))
                 .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
-        previousYearTransactions.forEach(transaction -> System.out.println(transaction));
+        if (!previousYearTransactions.isEmpty()) {
+            previousYearTransactions.forEach(transaction -> System.out.println(transaction));
+        } else {
+            System.out.println("There are no transactions for the previous year");
+        }
     }
 
     // Method lets the user search transactions by vendor name
@@ -131,6 +146,10 @@ public class Reports {
                 (transaction -> transaction.getVendor().toLowerCase().contains(userInput)).
                 sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
-        vendorSearch.forEach(transaction -> System.out.println(transaction));
+        if (!vendorSearch.isEmpty()) {
+            vendorSearch.forEach(transaction -> System.out.println(transaction));
+        } else {
+            System.out.println("There are no transactions matching your filters");
+        }
     }
 }
