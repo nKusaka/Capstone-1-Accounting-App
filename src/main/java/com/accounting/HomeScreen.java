@@ -74,7 +74,7 @@ public class HomeScreen {
 
         System.out.printf("Enter the deposit amount: ");
         double amount = read.nextDouble();
-        while (amount < 0 ) {
+        while (amount <= 0 ) {
             System.out.printf("Please enter a valid deposit amount (deposits should be a positive amount): ");
             amount = read.nextDouble();
         }
@@ -114,7 +114,7 @@ public class HomeScreen {
 
         System.out.printf("Enter the payment amount: ");
         double amount = read.nextDouble();
-        while (amount > 0 ) {
+        while (amount >= 0 ) {
             System.out.printf("Please enter a valid payment amount (payments should have a -): ");
             amount = read.nextDouble();
         }
