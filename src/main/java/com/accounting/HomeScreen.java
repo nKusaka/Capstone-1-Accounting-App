@@ -40,7 +40,7 @@ public class HomeScreen {
                     isValid = true;
                     break;
                 case "l":
-                    //displayLedger();
+                    displayLedger(read);
                     isValid = true;
                     break;
                 case "x":
@@ -61,7 +61,7 @@ public class HomeScreen {
                 Accessing Deposit Menu.....
                 ======================================\n""");
 
-        //loadingEffect();
+        loadingEffect();
 
         // Get user input for the transaction
         System.out.printf("Enter a description of the transaction: ");
@@ -100,7 +100,7 @@ public class HomeScreen {
                 Accessing Payment Menu.....
                 ======================================\n""");
 
-        //loadingEffect();
+        loadingEffect();
 
         System.out.printf("Enter the 16 digits on the back of your card: ");
         while (!isValid || cardInformation.length() != 16) {
@@ -118,6 +118,17 @@ public class HomeScreen {
             isValid = true;
         }
         read.nextLine();
-        bufferedWriter.write(cardInformation + "\n");
+        bufferedWriter.write("debit card|" + cardInformation + "\n");
+    }
+
+    // This method allows the user to see the Ledger screen
+    public static void displayLedger(Scanner read) throws Exception {
+        System.out.printf("""
+                ======================================
+                Fetching Ledger Screen.....
+                ======================================\n""");
+
+        loadingEffect();
+        Ledger.ledgerScreen();
     }
 }
