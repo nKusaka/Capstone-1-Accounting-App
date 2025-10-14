@@ -38,7 +38,7 @@ public class HomeScreen {
                     isValid = true;
                     break;
                 case "p":
-                    makePayment(read, bufferedWriter);
+                    makePayment(read, bufferedWriter, transactions);
                     isValid = true;
                     break;
                 case "l":
@@ -93,7 +93,7 @@ public class HomeScreen {
     }
 
     // This method allows the user to make a payment
-    public static void makePayment(Scanner read, BufferedWriter bufferedWriter) throws Exception {
+    public static void makePayment(Scanner read, BufferedWriter bufferedWriter, ArrayList<Transaction> transactions) throws Exception {
         boolean isValid = false;
         long debitInformation = 0;
         String cardInformation = "";
@@ -120,6 +120,11 @@ public class HomeScreen {
             isValid = true;
         }
         read.nextLine();
+
+        // Add new debit information to array list as a Transaction object and also add it to the csv file
+        Transaction tempTransaction = new Transaction();
+        tempTransaction.setDebitInformation(cardInformation);
+        transactions.add(tempTransaction);
         bufferedWriter.write("debit card|" + cardInformation + "\n");
     }
 
