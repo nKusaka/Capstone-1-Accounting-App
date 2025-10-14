@@ -63,7 +63,7 @@ public class Reports {
                     System.out.println("This input is invalid");
             }
         } while (!userInput.equalsIgnoreCase("h") && !userInput.equals("0"));
-
+        HomeScreen.loadingEffect();
         return userInput;
     }
 

@@ -92,8 +92,13 @@ public class HomeScreen {
 
     // This method adds a loading effect when called
     public static void loadingEffect() throws Exception {
-        Thread.sleep(2000);
-    }
+        for (int i = 0; i < 20; i++) {
+            Thread.sleep(100);
+            System.out.printf("▌");
+            }
+        Thread.sleep(1000);
+        System.out.println();
+        }
 
     // This method allows the user to make a payment
     public static void makePayment(Scanner read, BufferedWriter bufferedWriter, ArrayList<Transaction> transactions) throws Exception {
@@ -136,7 +141,7 @@ public class HomeScreen {
                 Fetching Ledger Screen.....
                 ======================================\n""");
 
-        //loadingEffect();
+        loadingEffect();
         Ledger.ledgerScreen(read,transactions);
     }
 }

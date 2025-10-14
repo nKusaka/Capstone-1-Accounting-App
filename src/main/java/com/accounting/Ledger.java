@@ -52,7 +52,7 @@ public class Ledger {
                 ======================================
                 Returning to Home Screen.....
                 ======================================\n""");
-                    //HomeScreen.loadingEffect();
+                    HomeScreen.loadingEffect();
                     break;
                 default:
                     isValid = false;
@@ -111,7 +111,7 @@ public class Ledger {
                 ======================================
                 Fetching Reports Screen.....
                 ======================================\n""");
-        //HomeScreen.loadingEffect();
+        HomeScreen.loadingEffect();
 
         return Reports.reportsScreen(transactions, read);
     }
