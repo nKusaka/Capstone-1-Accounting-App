@@ -5,7 +5,8 @@ import java.io.*;
 
 public class HomeScreenOptions {
 
-    // Method adds a users deposit to the transactions.csv file and arraylist/hashmap and creates a new transaction
+    // This method adds a users deposit to the transactions.csv file and
+    // arraylist and creates a new transaction object
     public static void addDeposit(Scanner read, ArrayList<Transaction> transactions, BufferedWriter bufferedWriter) throws Exception {
         System.out.printf("""
                 ======================================
@@ -49,7 +50,8 @@ public class HomeScreenOptions {
         System.out.println();
         }
 
-    // This method allows the user to make a payment
+    // This method add a users payment to the transactions.csv file and
+    // arraylist and creates a new transaction object
     public static void makePayment(Scanner read, BufferedWriter bufferedWriter, ArrayList<Transaction> transactions) throws Exception {
         System.out.printf("""
                 ======================================
@@ -83,7 +85,7 @@ public class HomeScreenOptions {
         bufferedWriter.write(String.valueOf(tempTransaction) + "\n");
     }
 
-    // This method allows the user to see the Ledger screen
+    // This method allows the user to move to the Ledger screen
     public static void displayLedger(Scanner read, ArrayList<Transaction> transactions) throws Exception {
         System.out.printf("""
                 ======================================

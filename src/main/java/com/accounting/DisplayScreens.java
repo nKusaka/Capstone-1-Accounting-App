@@ -9,7 +9,7 @@ import java.io.*;
 
 public class DisplayScreens {
 
-    // Creates the homescreen for the user
+    // Creates the homescreen
     public static void homeScreen() throws Exception {
 
         // Initialize variables
@@ -59,7 +59,7 @@ public class DisplayScreens {
 
     }
 
-    // This method creates the ledger screen and gets user input
+    // Creates the ledger screen
     public static void ledgerScreen(Scanner read, ArrayList<Transaction> transactions) throws Exception {
 
         // Initialize variables
@@ -114,7 +114,7 @@ public class DisplayScreens {
         } while (!userInput.equalsIgnoreCase("h"));
     }
 
-    // Reports Screen
+    // Creates the reports screen
     public static String reportsScreen(ArrayList<Transaction> transactions, Scanner read) throws Exception {
         // Initialize variables
         boolean isValid = true;
