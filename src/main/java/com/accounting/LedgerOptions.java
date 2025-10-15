@@ -11,9 +11,12 @@ public class LedgerOptions {
                 Displaying all Entries.....
                 ======================================\n""");
         //HomeScreen.loadingEffect();
-
+        if (!transactions.isEmpty()) {
         for (int i = transactions.size() - 1; i >= 0; i--) {
             System.out.println(transactions.get(i));
+        }
+        } else {
+            System.out.println("There are currently no transactions to list");
         }
     }
 
@@ -25,10 +28,14 @@ public class LedgerOptions {
                 ======================================\n""");
         //HomeScreen.loadingEffect();
 
-        for (int i = transactions.size() - 1; i >= 0; i--) {
-            if (transactions.get(i).getAmount() > 0) {
-                System.out.println(transactions.get(i));
+        if (!transactions.isEmpty()) {
+            for (int i = transactions.size() - 1; i >= 0; i--) {
+                if (transactions.get(i).getAmount() > 0) {
+                    System.out.println(transactions.get(i));
+                }
             }
+        } else {
+            System.out.println("There are currently no deposits to list");
         }
     }
 
@@ -40,10 +47,14 @@ public class LedgerOptions {
                 ======================================\n""");
         //HomeScreen.loadingEffect();
 
-        for (int i = transactions.size() - 1; i >= 0; i--) {
-            if (transactions.get(i).getAmount() < 0) {
-                System.out.println(transactions.get(i));
+        if (!transactions.isEmpty()) {
+            for (int i = transactions.size() - 1; i >= 0; i--) {
+                if (transactions.get(i).getAmount() < 0) {
+                    System.out.println(transactions.get(i));
+                }
             }
+        } else {
+            System.out.println("There are currently no payments to list");
         }
     }
 
@@ -53,7 +64,7 @@ public class LedgerOptions {
                 ======================================
                 Fetching Reports Screen.....
                 ======================================\n""");
-        HomeScreenOptions.loadingEffect();
+       // HomeScreenOptions.loadingEffect();
 
         return DisplayScreens.reportsScreen(transactions, read);
     }

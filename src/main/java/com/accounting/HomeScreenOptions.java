@@ -90,7 +90,7 @@ public class HomeScreenOptions {
                 Fetching Ledger Screen.....
                 ======================================\n""");
 
-        loadingEffect();
+       // loadingEffect();
         DisplayScreens.ledgerScreen(read,transactions);
     }
 }

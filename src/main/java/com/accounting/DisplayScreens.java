@@ -105,7 +105,7 @@ public class DisplayScreens {
                 ======================================
                 Returning to Home Screen.....
                 ======================================\n""");
-                    HomeScreenOptions.loadingEffect();
+                    //HomeScreenOptions.loadingEffect();
                     break;
                 default:
                     isValid = false;
@@ -133,6 +133,7 @@ public class DisplayScreens {
                         |            Press 4 for Previous Years Report           |
                         |               Press 5 to Search by Vendor              |
                         |               Press 0 for the Ledger Menu              |
+                        |             Press 6 to make a Custom Search            |
                         |          Press H to go back to the homescreen          |
                         |========================================================|""");
             }
@@ -161,6 +162,8 @@ public class DisplayScreens {
                     vendorSearch(transactions, read);
                     isValid = true;
                     break;
+                case "6":
+                    customSearch(transactions, read);
                 case "0":
                     System.out.printf("""
                 ======================================
@@ -178,7 +181,7 @@ public class DisplayScreens {
                     System.out.println("This input is invalid");
             }
         } while (!userInput.equalsIgnoreCase("h") && !userInput.equals("0"));
-        HomeScreenOptions.loadingEffect();
+        //HomeScreenOptions.loadingEffect();
         return userInput;
     }
 }

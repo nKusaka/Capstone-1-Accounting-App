@@ -89,4 +89,9 @@ public class ReportsOptions {
             System.out.println("There are no transactions matching your filters");
         }
     }
+
+    // Method that lets the user make a custom search
+    public static void customSearch(ArrayList<Transaction> transactions, Scanner read) {
+
+    }
 }
