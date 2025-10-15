@@ -16,7 +16,6 @@ public class DisplayScreens {
         String userInput = "";
         Scanner read = new Scanner(System.in);
         ArrayList<Transaction> transactions = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
         boolean isValid = true;
         FileWriter fileWriter = new FileWriter("transactions.csv");
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -105,7 +104,7 @@ public class DisplayScreens {
                 ======================================
                 Returning to Home Screen.....
                 ======================================\n""");
-                    //HomeScreenOptions.loadingEffect();
+                    HomeScreenOptions.loadingEffect();
                     break;
                 default:
                     isValid = false;
@@ -119,7 +118,7 @@ public class DisplayScreens {
         // Initialize variables
         boolean isValid = true;
         String userInput = "";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
         // Print ledger screen
         do {
@@ -163,7 +162,7 @@ public class DisplayScreens {
                     isValid = true;
                     break;
                 case "6":
-                    customSearch(transactions, read);
+                    customSearch(transactions, read, formatter);
                 case "0":
                     System.out.printf("""
                 ======================================

@@ -1,6 +1,7 @@
 package com.accounting;
 import java.time.*;
 import java.util.*;
+import java.time.format.*;
 
 public class ReportsOptions {
 
@@ -91,7 +92,40 @@ public class ReportsOptions {
     }
 
     // Method that lets the user make a custom search
-    public static void customSearch(ArrayList<Transaction> transactions, Scanner read) {
+    public static void customSearch(ArrayList<Transaction> transactions, Scanner read, DateTimeFormatter formatter) {
+
+
+        System.out.printf("Enter a start date of the form (Month Number/Day Number/Year) or press enter to leave blank: ");
+        String startDate = read.nextLine();
+        if (startDate != null) {
+
+        }
+
+        System.out.printf("Enter an end date of the form (Month Number/Day Number/Year) or press enter to leave blank: ");
+        String endDate = read.nextLine();
+        if (endDate != null) {
+
+        }
+
+        System.out.printf("Enter a description of what you are looking for or press enter to leave blank: ");
+        String description = read.nextLine();
+        if (description != null) {
+
+        }
+
+        System.out.printf("Enter the name of the vendor you would like to search for or leave blank: ");
+        String vendor = read.nextLine();
+        if (vendor != null) {
+
+        }
+
+        System.out.printf("Enter an amount (DO NOT USE $) you would like to search for or leave blank: ");
+        double amount = read.nextDouble();
+        read.nextLine();
+        if (amount != 0) {
+
+        }
+
 
     }
 }
