@@ -94,38 +94,39 @@ public class ReportsOptions {
     // Method that lets the user make a custom search
     public static void customSearch(ArrayList<Transaction> transactions, Scanner read, DateTimeFormatter formatter) {
 
-
         System.out.printf("Enter a start date of the form (Month Number/Day Number/Year) or press enter to leave blank: ");
-        String startDate = read.nextLine();
-        if (startDate != null) {
-
-        }
+        String startDateString = read.nextLine();
+        LocalDate startDate = startDateString.isEmpty() ? null : LocalDate.parse(startDateString, formatter);
 
         System.out.printf("Enter an end date of the form (Month Number/Day Number/Year) or press enter to leave blank: ");
-        String endDate = read.nextLine();
-        if (endDate != null) {
-
-        }
+        String endDateString = read.nextLine();
+        LocalDate endDate = endDateString.isEmpty() ? null : LocalDate.parse(endDateString, formatter);
 
         System.out.printf("Enter a description of what you are looking for or press enter to leave blank: ");
         String description = read.nextLine();
-        if (description != null) {
 
-        }
-
-        System.out.printf("Enter the name of the vendor you would like to search for or leave blank: ");
+        System.out.printf("Enter the name of the vendor you would like to search for or press enter to leave blank: ");
         String vendor = read.nextLine();
-        if (vendor != null) {
 
+        System.out.printf("Enter an amount maximum you would like to search for (DO NOT USE $) or press enter to leave blank: ");
+        String maxAmountString = read.nextLine();
+        double maxAmount = maxAmountString.isEmpty() ? 0 : Double.parseDouble(maxAmountString);
+
+
+        List<Transaction> customSearch = transactions.stream()
+                .filter(transaction -> startDate == null || !transaction.getDateTime().isBefore(startDate.atStartOfDay()))
+                .filter(transaction -> endDate == null || !transaction.getDateTime().isAfter(endDate.atStartOfDay()))
+                .filter(transaction -> description.isEmpty() || transaction.getDescription().contains(description))
+                .filter(transaction -> vendor.isEmpty() || transaction.getVendor().contains(vendor))
+                .filter(transaction -> maxAmount == 0 || transaction.getAmount() <= maxAmount)
+                .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
+                .toList();
+
+        if (customSearch.isEmpty()) {
+            System.out.println("There we no transactions matching your filters");
+        } else {
+            customSearch.forEach(transaction -> System.out.println(transaction));
         }
-
-        System.out.printf("Enter an amount (DO NOT USE $) you would like to search for or leave blank: ");
-        double amount = read.nextDouble();
-        read.nextLine();
-        if (amount != 0) {
-
-        }
-
 
     }
 }

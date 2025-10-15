@@ -53,6 +53,7 @@ public class DisplayScreens {
                 default:
                     isValid = false;
                     System.out.println("This input is invalid");
+                    break;
             }
         } while (!userInput.equalsIgnoreCase("x"));
 
@@ -109,6 +110,7 @@ public class DisplayScreens {
                 default:
                     isValid = false;
                     System.out.println("This input is invalid");
+                    break;
             }
         } while (!userInput.equalsIgnoreCase("h"));
     }
@@ -163,6 +165,7 @@ public class DisplayScreens {
                     break;
                 case "6":
                     customSearch(transactions, read, formatter);
+                    break;
                 case "0":
                     System.out.printf("""
                 ======================================
@@ -178,6 +181,7 @@ public class DisplayScreens {
                 default:
                     isValid = false;
                     System.out.println("This input is invalid");
+                    break;
             }
         } while (!userInput.equalsIgnoreCase("h") && !userInput.equals("0"));
         //HomeScreenOptions.loadingEffect();
