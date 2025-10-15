@@ -1,60 +1,9 @@
 package com.accounting;
 import java.time.*;
-import java.time.format.*;
 import java.util.*;
 import java.io.*;
 
-public class HomeScreen {
-
-    // Creates the homescreen for the user
-    public static void homeScreen() throws Exception {
-
-        // Initialize variables
-        String userInput = "";
-        Scanner read = new Scanner(System.in);
-        ArrayList<Transaction> transactions = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH:mm:ss");
-        boolean isValid = true;
-        FileWriter fileWriter = new FileWriter("transactions.csv");
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-        do {
-            if (isValid) {
-                System.out.println("""
-                        |=====================Home Screen=====================|
-                        |              Press D to add a deposit               |
-                        |              Press P to make a payment              |
-                        |         Press L to display the Ledger screen        |
-                        |           Press X to exit the application           |
-                        |=====================================================|""");
-            }
-            System.out.printf("Enter choice: ");
-            userInput = read.nextLine();
-
-            // Check to make sure users input is valid
-            switch (userInput.toLowerCase()) {
-                case "d":
-                    addDeposit(read, transactions, bufferedWriter);
-                    isValid = true;
-                    break;
-                case "p":
-                    makePayment(read, bufferedWriter, transactions);
-                    isValid = true;
-                    break;
-                case "l":
-                    displayLedger(read,transactions);
-                    isValid = true;
-                    break;
-                case "x":
-                    bufferedWriter.close();
-                    break;
-                default:
-                    isValid = false;
-                    System.out.println("This input is invalid");
-            }
-        } while (!userInput.equalsIgnoreCase("x"));
-
-    }
+public class HomeScreenOptions {
 
     // Method adds a users deposit to the transactions.csv file and arraylist/hashmap and creates a new transaction
     public static void addDeposit(Scanner read, ArrayList<Transaction> transactions, BufferedWriter bufferedWriter) throws Exception {
@@ -142,6 +91,6 @@ public class HomeScreen {
                 ======================================\n""");
 
         loadingEffect();
-        Ledger.ledgerScreen(read,transactions);
+        DisplayScreens.ledgerScreen(read,transactions);
     }
 }
