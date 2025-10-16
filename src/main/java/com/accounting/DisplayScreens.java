@@ -10,7 +10,7 @@ import java.io.*;
 public class DisplayScreens {
 
     // Creates the welcome screen
-    public static void welcomeScreen() throws Exception {
+    public static void welcomeScreen(ArrayList<Transaction> transactions, BufferedWriter bufferedWriter, Scanner read) throws Exception {
         System.out.printf("""
                 |===========================|
                 |Accounting App Opening.... |
@@ -18,19 +18,15 @@ public class DisplayScreens {
 
         loadingEffect();
         System.out.println();
-        homeScreen();
+        homeScreen(transactions, bufferedWriter, read);
     }
 
     // Creates the homescreen
-    public static void homeScreen() throws Exception {
+    public static void homeScreen(ArrayList<Transaction> transactions, BufferedWriter bufferedWriter, Scanner read) throws Exception {
 
         // Initialize variables
         String userInput = "";
-        Scanner read = new Scanner(System.in);
-        ArrayList<Transaction> transactions = new ArrayList<>();
         boolean isValid = true;
-        FileWriter fileWriter = new FileWriter("transactions.csv");
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
         do {
             if (isValid) {
@@ -202,4 +198,7 @@ public class DisplayScreens {
         //HomeScreenOptions.loadingEffect();
         return userInput;
     }
+
+    // Loads the array list with transaction objects if the transactions.csv file has something in it
+
 }
