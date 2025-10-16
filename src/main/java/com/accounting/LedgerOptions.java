@@ -10,7 +10,7 @@ public class LedgerOptions {
                 ======================================
                 Displaying all Entries.....
                 ======================================\n""");
-        //HomeScreen.loadingEffect();
+
         if (!transactions.isEmpty()) {
         for (int i = transactions.size() - 1; i >= 0; i--) {
             System.out.println(transactions.get(i));
@@ -26,7 +26,6 @@ public class LedgerOptions {
                 ======================================
                 Displaying all Deposits.....
                 ======================================\n""");
-        //HomeScreen.loadingEffect();
 
         if (!transactions.isEmpty()) {
             for (int i = transactions.size() - 1; i >= 0; i--) {
@@ -45,7 +44,6 @@ public class LedgerOptions {
                 ======================================
                 Displaying all Payments.....
                 ======================================\n""");
-        //HomeScreen.loadingEffect();
 
         if (!transactions.isEmpty()) {
             for (int i = transactions.size() - 1; i >= 0; i--) {
@@ -64,7 +62,7 @@ public class LedgerOptions {
                 ======================================
                 Fetching Reports Screen.....
                 ======================================\n""");
-       // HomeScreenOptions.loadingEffect();
+       HomeScreenOptions.loadingEffect();
 
         return DisplayScreens.reportsScreen(transactions, read);
     }

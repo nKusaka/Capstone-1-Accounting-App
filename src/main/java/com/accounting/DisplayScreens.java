@@ -9,6 +9,18 @@ import java.io.*;
 
 public class DisplayScreens {
 
+    // Creates the welcome screen
+    public static void welcomeScreen() throws Exception {
+        System.out.printf("""
+                |===========================|
+                |Accounting App Opening.... |
+                |===========================|\n""");
+
+        loadingEffect();
+        System.out.println();
+        homeScreen();
+    }
+
     // Creates the homescreen
     public static void homeScreen() throws Exception {
 
@@ -135,7 +147,7 @@ public class DisplayScreens {
                         |               Press 5 to Search by Vendor              |
                         |               Press 0 for the Ledger Menu              |
                         |             Press 6 to make a Custom Search            |
-                        |          Press H to go back to the homescreen          |
+                        |          Press H to go back to the Homescreen          |
                         |========================================================|""");
             }
             System.out.printf("Enter choice: ");
@@ -165,6 +177,7 @@ public class DisplayScreens {
                     break;
                 case "6":
                     customSearch(transactions, read, formatter);
+                    isValid = true;
                     break;
                 case "0":
                     System.out.printf("""

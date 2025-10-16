@@ -11,9 +11,9 @@ public class ReportsOptions {
         LocalDateTime today = LocalDateTime.now();
         LocalDateTime firstOfMonth = today.withDayOfMonth(1);
 
-        List<Transaction> monthToDateTransactions = transactions.stream().filter
-                (transaction -> !transaction.getDateTime().isAfter(today)
-        && !transaction.getDateTime().isBefore(firstOfMonth))
+        List<Transaction> monthToDateTransactions = transactions.stream()
+                .filter(transaction -> !transaction.getDateTime().isAfter(today)
+                        && !transaction.getDateTime().isBefore(firstOfMonth))
                 .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
         if (!monthToDateTransactions.isEmpty()) {
@@ -31,7 +31,7 @@ public class ReportsOptions {
 
         List<Transaction> previousMonthTransactions = transactions.stream().filter
                 (transaction -> !transaction.getDateTime().isBefore(startOfMonth)
-                && !transaction.getDateTime().isAfter(endOfMonth))
+                        && !transaction.getDateTime().isAfter(endOfMonth))
                 .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
         if (!previousMonthTransactions.isEmpty()) {
@@ -48,7 +48,7 @@ public class ReportsOptions {
 
         List<Transaction> yearToDateTransactions = transactions.stream().filter
                 (transaction -> !transaction.getDateTime().isBefore(startOfYear)
-                && !transaction.getDateTime().isAfter(today))
+                        && !transaction.getDateTime().isAfter(today))
                 .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
 
         if (!yearToDateTransactions.isEmpty()) {
@@ -63,10 +63,11 @@ public class ReportsOptions {
         LocalDateTime endOfYear = LocalDateTime.now().withDayOfYear(1);
         LocalDateTime startOfYear = LocalDateTime.now().minusYears(1).withDayOfYear(1);
 
-        List<Transaction> previousYearTransactions = transactions.stream().filter
-                (transaction -> !transaction.getDateTime().isBefore(startOfYear)
-                && !transaction.getDateTime().isAfter(endOfYear))
-                .sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
+        List<Transaction> previousYearTransactions = transactions.stream()
+                .filter(transaction -> !transaction.getDateTime().isBefore(startOfYear)
+                        && !transaction.getDateTime().isAfter(endOfYear))
+                .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
+                .toList();
 
         if (!previousYearTransactions.isEmpty()) {
             previousYearTransactions.forEach(transaction -> System.out.println(transaction));
@@ -80,9 +81,10 @@ public class ReportsOptions {
         System.out.printf("Enter the name of the vendor you would like to search for: ");
         String userInput = read.nextLine().toLowerCase();
 
-        List<Transaction> vendorSearch = transactions.stream().filter
-                (transaction -> transaction.getVendor().toLowerCase().contains(userInput)).
-                sorted(Comparator.comparing(Transaction::getDateTime).reversed()).toList();
+        List<Transaction> vendorSearch = transactions.stream()
+                .filter(transaction -> transaction.getVendor().toLowerCase().contains(userInput))
+                .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
+                .toList();
 
         if (!vendorSearch.isEmpty()) {
             vendorSearch.forEach(transaction -> System.out.println(transaction));
@@ -92,7 +94,7 @@ public class ReportsOptions {
     }
 
     // Method that lets the user make a custom search
-    public static void customSearch(ArrayList<Transaction> transactions, Scanner read, DateTimeFormatter formatter) {
+    public static void customSearch(ArrayList<Transaction> transactions, Scanner read, DateTimeFormatter formatter) throws Exception {
 
         System.out.printf("Enter a start date of the form (Month Number/Day Number/Year) or press enter to leave blank: ");
         String startDateString = read.nextLine();
@@ -112,7 +114,7 @@ public class ReportsOptions {
         String maxAmountString = read.nextLine();
         double maxAmount = maxAmountString.isEmpty() ? 0 : Double.parseDouble(maxAmountString);
 
-
+        // Filters on each thing then sort by most recent
         List<Transaction> customSearch = transactions.stream()
                 .filter(transaction -> startDate == null || !transaction.getDateTime().isBefore(startDate.atStartOfDay()))
                 .filter(transaction -> endDate == null || !transaction.getDateTime().isAfter(endDate.atStartOfDay()))
@@ -125,6 +127,7 @@ public class ReportsOptions {
         if (customSearch.isEmpty()) {
             System.out.println("There we no transactions matching your filters");
         } else {
+            HomeScreenOptions.loadingEffect();
             customSearch.forEach(transaction -> System.out.println(transaction));
         }
 

@@ -13,8 +13,6 @@ public class HomeScreenOptions {
                 Accessing Deposit Menu.....
                 ======================================\n""");
 
-        //loadingEffect();
-
         // Get user input for the transaction
         System.out.printf("Enter a description of the transaction: ");
         String description = read.nextLine();
@@ -58,8 +56,6 @@ public class HomeScreenOptions {
                 Accessing Payment Menu.....
                 ======================================\n""");
 
-        //loadingEffect();
-
         // Get user input for the transaction
         System.out.printf("Enter a description of the transaction: ");
         String description = read.nextLine();
@@ -92,7 +88,7 @@ public class HomeScreenOptions {
                 Fetching Ledger Screen.....
                 ======================================\n""");
 
-       // loadingEffect();
+        loadingEffect();
         DisplayScreens.ledgerScreen(read,transactions);
     }
 }
