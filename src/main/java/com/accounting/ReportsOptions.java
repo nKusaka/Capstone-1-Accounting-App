@@ -117,7 +117,7 @@ public class ReportsOptions {
         // Filters on each thing then sort by most recent
         List<Transaction> customSearch = transactions.stream()
                 .filter(transaction -> startDate == null || !transaction.getDateTime().isBefore(startDate.atStartOfDay()))
-                .filter(transaction -> endDate == null || !transaction.getDateTime().isAfter(endDate..plusDays(1).atStartOfDay()))
+                .filter(transaction -> endDate == null || !transaction.getDateTime().isAfter(endDate.plusDays(1).atStartOfDay()))
                 .filter(transaction -> description.isEmpty() || transaction.getDescription().contains(description))
                 .filter(transaction -> vendor.isEmpty() || transaction.getVendor().contains(vendor))
                 .filter(transaction -> maxAmount == 0 || transaction.getAmount() <= maxAmount)
