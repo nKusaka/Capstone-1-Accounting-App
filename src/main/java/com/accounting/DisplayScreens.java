@@ -184,12 +184,14 @@ public class DisplayScreens {
                 ======================================
                 Returning to Ledger Screen.....
                 ======================================\n""");
+                    loadingEffect();
                     break;
                 case "h":
                     System.out.printf("""
                 ======================================
                 Returning to Home Screen.....
                 ======================================\n""");
+                    loadingEffect();
                     break;
                 default:
                     isValid = false;
