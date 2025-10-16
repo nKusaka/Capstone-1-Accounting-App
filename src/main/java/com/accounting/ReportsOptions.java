@@ -110,29 +110,60 @@ public class ReportsOptions {
         System.out.printf("Enter the name of the vendor you would like to search for or press enter to leave blank: ");
         String vendor = read.nextLine();
 
-        System.out.printf("Enter an amount maximum you would like to search for (DO NOT USE $) or press enter to leave blank: ");
-        String maxAmountString = read.nextLine();
-        double maxAmount = maxAmountString.isEmpty() ? 0 : Double.parseDouble(maxAmountString);
+        System.out.printf("For deposits press 0, for payments press 1, or leave blank if you would like to include both: ");
+        String transactionType = read.nextLine();
 
-        // Filters by excluding dates before the users start date and after the users end date
-        // Filters by description
-        // Filters by vendor
-        // Filters by allowing the user to only show transactions that do not exceed their maximum input amount
-        List<Transaction> customSearch = transactions.stream()
-                .filter(transaction -> startDate == null || !transaction.getDateTime().isBefore(startDate.atStartOfDay()))
-                .filter(transaction -> endDate == null || !transaction.getDateTime().isAfter(endDate.plusDays(1).atStartOfDay()))
-                .filter(transaction -> description.isEmpty() || transaction.getDescription().contains(description))
-                .filter(transaction -> vendor.isEmpty() || transaction.getVendor().contains(vendor))
-                .filter(transaction -> maxAmount == 0 || transaction.getAmount() <= maxAmount)
-                .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
-                .toList();
+        // Filters by excluding dates before the users start date and after the users end date, if the user left this blank then it includes all transactions regardless of date
+        // Filters by description, if the user left this blank then it includes all transactions regardless of description
+        // Filters by vendor, if the user left this blank then it includes all transactions regardless of vendor
+        // Filters by allowing the user to only show transactions that do not exceed their maximum input amount, if the user left this blank then the amount does not matter
+        // The list is then sorted by date then reversed so that the newest dates are first instead of last
+        // Finally the stream is closed and the list is put into customSearch list
+        if (transactionType.equals("0")) {
+            List<Transaction> customSearch = transactions.stream()
 
-        if (customSearch.isEmpty()) {
-            System.out.println("There we no transactions matching your filters");
+                    .filter(transaction -> startDate == null || !transaction.getDateTime().isBefore(startDate.atStartOfDay()))
+
+                    .filter(transaction -> endDate == null || !transaction.getDateTime().isAfter(endDate.plusDays(1).atStartOfDay()))
+
+                    .filter(transaction -> description.isEmpty() || transaction.getDescription().contains(description))
+
+                    .filter(transaction -> vendor.isEmpty() || transaction.getVendor().contains(vendor))
+
+                    .filter(transaction -> transaction.getAmount() > 0)
+
+                    .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
+                    .toList();
+
+            if (customSearch.isEmpty()) {
+                System.out.println("There we no transactions matching your filters");
+            } else {
+                customSearch.forEach(transaction -> System.out.println(transaction));
+            }
+
         } else {
-            HomeScreenOptions.loadingEffect();
-            customSearch.forEach(transaction -> System.out.println(transaction));
+            List<Transaction> customSearch = transactions.stream()
+
+                    .filter(transaction -> startDate == null || !transaction.getDateTime().isBefore(startDate.atStartOfDay()))
+
+                    .filter(transaction -> endDate == null || !transaction.getDateTime().isAfter(endDate.plusDays(1).atStartOfDay()))
+
+                    .filter(transaction -> description.isEmpty() || transaction.getDescription().contains(description))
+
+                    .filter(transaction -> vendor.isEmpty() || transaction.getVendor().contains(vendor))
+
+                    .filter(transaction -> transactionType.isEmpty() || transaction.getAmount() < 0)
+
+                    .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
+                    .toList();
+
+            if (customSearch.isEmpty()) {
+                System.out.println("There we no transactions matching your filters");
+            } else {
+                customSearch.forEach(transaction -> System.out.println(transaction));
+            }
         }
 
     }
+
 }
