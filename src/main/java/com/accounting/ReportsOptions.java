@@ -114,7 +114,10 @@ public class ReportsOptions {
         String maxAmountString = read.nextLine();
         double maxAmount = maxAmountString.isEmpty() ? 0 : Double.parseDouble(maxAmountString);
 
-        // Filters on each thing then sort by most recent
+        // Filters by excluding dates before the users start date and after the users end date
+        // Filters by description
+        // Filters by vendor
+        // Filters by allowing the user to only show transactions that do not exceed their maximum input amount
         List<Transaction> customSearch = transactions.stream()
                 .filter(transaction -> startDate == null || !transaction.getDateTime().isBefore(startDate.atStartOfDay()))
                 .filter(transaction -> endDate == null || !transaction.getDateTime().isAfter(endDate.plusDays(1).atStartOfDay()))
