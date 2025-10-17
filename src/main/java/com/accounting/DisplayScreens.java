@@ -12,9 +12,9 @@ public class DisplayScreens {
     // Creates the welcome screen
     public static void welcomeScreen(ArrayList<Transaction> transactions, BufferedWriter bufferedWriter, Scanner read) throws Exception {
         System.out.printf("""
-                |===========================|
-                |Accounting App Opening.... |
-                |===========================|\n""");
+                |=================================|
+                |Personal Banking App Opening.... |
+                |=================================|\n""");
 
         loadingEffect();
         System.out.println();
