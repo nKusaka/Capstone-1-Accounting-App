@@ -21,6 +21,7 @@ public class Main {
         // Starts program from welcome screen
         DisplayScreens.welcomeScreen(transactions, bufferedWriter, read);
 
+        // Close Scanners, buffers, and filewriters/readers
         read.close();
         bufferedWriter.close();
         bufferedReader.close();

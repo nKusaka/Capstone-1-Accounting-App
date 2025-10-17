@@ -12,9 +12,14 @@ public class LedgerOptions {
                 ======================================\n""");
 
         if (!transactions.isEmpty()) {
-        for (int i = transactions.size() - 1; i >= 0; i--) {
-            System.out.println(transactions.get(i));
-        }
+            List<Transaction> transactionList = transactions.stream()
+                    .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
+                    .toList();
+
+            transactionList.forEach(transaction -> System.out.println(transaction));
+//        for (int i = transactions.size() - 1; i >= 0; i--) {
+//            System.out.println(transactions.get(i));
+//        }
         } else {
             System.out.println("There are currently no transactions to list");
         }
@@ -28,11 +33,17 @@ public class LedgerOptions {
                 ======================================\n""");
 
         if (!transactions.isEmpty()) {
-            for (int i = transactions.size() - 1; i >= 0; i--) {
-                if (transactions.get(i).getAmount() > 0) {
-                    System.out.println(transactions.get(i));
-                }
-            }
+            List<Transaction> depositsList = transactions.stream()
+                    .filter(transaction -> transaction.getAmount() > 0)
+                    .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
+                    .toList();
+
+            depositsList.forEach(transaction -> System.out.println(transaction));
+//            for (int i = transactions.size() - 1; i >= 0; i--) {
+//                if (transactions.get(i).getAmount() > 0) {
+//                    System.out.println(transactions.get(i));
+//                }
+//            }
         } else {
             System.out.println("There are currently no deposits to list");
         }
@@ -46,11 +57,18 @@ public class LedgerOptions {
                 ======================================\n""");
 
         if (!transactions.isEmpty()) {
-            for (int i = transactions.size() - 1; i >= 0; i--) {
-                if (transactions.get(i).getAmount() < 0) {
-                    System.out.println(transactions.get(i));
-                }
-            }
+            List<Transaction> paymentsList = transactions.stream()
+                    .filter(transaction -> transaction.getAmount() < 0)
+                    .sorted(Comparator.comparing(Transaction::getDateTime).reversed())
+                    .toList();
+
+            paymentsList.forEach(transaction -> System.out.println(transaction));
+
+//            for (int i = transactions.size() - 1; i >= 0; i--) {
+//                if (transactions.get(i).getAmount() < 0) {
+//                    System.out.println(transactions.get(i));
+//                }
+//            }
         } else {
             System.out.println("There are currently no payments to list");
         }
